@@ -47,7 +47,28 @@ php artisan key:generate
 npm install
 ```
 
-### 2) Create DB + seed demo data
+### 2) Ensure cache/session/view directories exist (important)
+If you see errors like **“Please provide a valid cache path”**, your clone is missing Laravel’s required runtime directories.
+
+This repo keeps the directory structure via placeholder `.gitignore` files under [`storage/framework`](storage/framework/.gitignore:1). If your environment still needs them, create them:
+
+**Linux/macOS (bash):**
+```bash
+mkdir -p storage/framework/cache/data
+mkdir -p storage/framework/sessions
+mkdir -p storage/framework/views
+chmod -R 775 storage bootstrap/cache
+```
+
+**Windows (PowerShell):**
+```powershell
+New-Item -ItemType Directory -Force -Path `
+  storage/framework/cache/data, `
+  storage/framework/sessions, `
+  storage/framework/views | Out-Null
+```
+
+### 3) Create DB + seed demo data
 ```bash
 php artisan migrate:fresh --seed
 ```
